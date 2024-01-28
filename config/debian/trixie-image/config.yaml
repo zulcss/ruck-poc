@@ -1,0 +1,13 @@
+---
+name: ExampleOS
+actions:
+  mmdebstrap:
+    suite: trixie
+    target: rootfs.tar.gz
+    packages:
+      - systemd-boot
+      - dracut
+  disk:
+    definitions: partitions
+    image: disk.img
+    size: 20G
