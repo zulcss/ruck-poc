@@ -4,6 +4,9 @@ RUN apt-get update && \
     apt-get install -y mmdebstrap \
 		       systemd \
 		       python3-pip \
+		       python3-yaml \
+		       bubblewrap \
 		       git
+COPY files/pip.conf /etc/pip.conf
 RUN mkdir -p usr/src
 
