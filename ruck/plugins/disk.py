@@ -11,6 +11,7 @@ from ruck import exceptions
 from ruck.plugins.base import Base
 from ruck.utils import run_command
 
+
 class DiskPlugin(Base):
     def __init__(self, state, config, workspace):
         self.state = state
@@ -24,8 +25,9 @@ class DiskPlugin(Base):
         """Configure the image disk via systemd-repart."""
         self.logging.info("Configuring disk.")
         if self.repart is None:
-            raise exceptions.CommandNotFoundError("%s is not found.", self.repart)
-        
+            raise exceptions.CommandNotFoundError(
+                "%s is not found.", self.repart)
+
         definitions = self.config.get("definitions", None)
         if definitions is None:
             raise exceptions.ConfigError("Partition definitons not found.")

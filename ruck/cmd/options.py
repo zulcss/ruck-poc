@@ -25,6 +25,7 @@ def debug_option(f):
         callback=callback
     )(f)
 
+
 def clean_option(f):
     def callback(ctxt, param, value):
         state = ctxt.ensure_object(State)

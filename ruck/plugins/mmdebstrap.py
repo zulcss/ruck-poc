@@ -5,11 +5,10 @@ SPDX-License-Identifier: Apache-2.0
 
 """
 
-import logging
 import shutil
 
-from ruck.plugins.base import Base
 from ruck import exceptions
+from ruck.plugins.base import Base
 from ruck import utils
 
 
@@ -24,7 +23,7 @@ class MmdebstrapPlugin(Base):
     def run_actions(self):
         """Run the mmdebstrap command."""
         if self.mmdebstrap is None:
-            raise exceptions.CommandNotFoundError("mmdebstrap is not found.") 
+            raise exceptions.CommandNotFoundError("mmdebstrap is not found.")
 
         config = self.config["actions"]["mmdebstrap"]
         suite = config.get("suite", None)
@@ -35,10 +34,10 @@ class MmdebstrapPlugin(Base):
             raise exceptions.ConfigError("Target is not specified.")
 
         # Build the mmdebstrap to build the rootfs
-        cmd = [ 
-               self.mmdebstrap,
-               "--architecture", "amd64",
-               "--include", "systemd-sysv",
+        cmd = [
+            self.mmdebstrap,
+            "--architecture", "amd64",
+            "--include", "systemd-sysv",
         ]
         if self.state.debug:
             cmd.extend(["--debug"])
@@ -70,6 +69,6 @@ class MmdebstrapPlugin(Base):
         customize_hooks = config.get("customize-hooks", None)
         if customize_hooks:
             cmd.extend([f"--customize-hook={hook}" for hook in
-                        customize_hooks]) 
+                        customize_hooks])
         cmd.extend([suite, target])
         utils.run_command(cmd, cwd=self.workspace)
