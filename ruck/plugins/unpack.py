@@ -5,6 +5,7 @@ SPDX-License-Identifier: Apache-2.0
 
 """
 import logging
+import os
 
 from ruck import exceptions
 from ruck.plugins.base import Base
@@ -31,6 +32,9 @@ class UnpackPlugin(Base):
         
         rootfs = self.workspace.joinpath("rootfs")
         self._mount(image, rootfs)
+        self._unpack(target, rootfs)
+        self._umount(rootfs)
+
         
     def _mount(self, image, path):
         """Mount image on the desired path."""
@@ -40,6 +44,14 @@ class UnpackPlugin(Base):
             cwd=self.workspace
         )
 
-    def _umount(self, image):
+    def _umount(self, path):
         """Umount image."""
-        pass
+        self.logging.info(f"Umounting {path}")
+        run_command(
+            ["systemd-dissect", "-U", path],
+            cwd=self.workspace)
+
+    def _unpack(self, target, rootfs):
+        run_command(
+            ["tar", "-C", rootfs, "-xf", target, "--numeric-owner"],
+            cwd=self.workspace)
