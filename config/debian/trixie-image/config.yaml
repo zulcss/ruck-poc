@@ -11,3 +11,5 @@ actions:
     definitions: partitions
     image: disk.img
     size: 20G
+  unpack:
+    target: rootfs.tar.gz

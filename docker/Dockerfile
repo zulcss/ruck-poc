@@ -6,6 +6,7 @@ RUN apt-get update && \
 		       python3-pip \
 		       python3-yaml \
 		       bubblewrap \
+		       systemd-container \
 		       dosfstools \
 		       git
 COPY files/pip.conf /etc/pip.conf
