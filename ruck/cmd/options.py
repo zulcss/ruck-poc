@@ -43,7 +43,6 @@ def config_option(f):
     def callback(ctxt, param, value):
         state = ctxt.ensure_object(State)
         state.config = pathlib.Path(value)
-        state.config = state.config.joinpath("config.yaml")
 
         return value
     return click.option(

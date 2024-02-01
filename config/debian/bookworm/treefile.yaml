@@ -7,9 +7,3 @@ actions:
     packages:
       - systemd-boot
       - dracut
-  disk:
-    definitions: partitions
-    image: disk.img
-    size: 20G
-  unpack:
-    target: rootfs.tar.gz

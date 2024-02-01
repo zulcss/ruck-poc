@@ -16,6 +16,7 @@ class Config(object):
 
     def load_config(self):
         """Load the configuration file."""
+        print(self.state.config)
         with open(self.state.config, "r") as f:
             try:
                 return yaml.safe_load(f)
