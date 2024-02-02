@@ -4,6 +4,11 @@ actions:
   mmdebstrap:
     suite: trixie
     target: rootfs.tar.gz
+    setup-hooks:
+      - 'sync-in overlay/debian/ /'
     packages:
       - systemd-boot
       - dracut
+      - linux-image-amd64
+      - ostree
+      - ostree-boot

@@ -1,0 +1,7 @@
+---
+name: ExampleOS
+actions:
+  ostree:
+    source: rootfs.tar.gz
+    repo: /var/www/html/repo
+    branch: ExampleOS/testing
