@@ -51,8 +51,7 @@ class OstreePlugin(Base):
         self.unpack_source(source, rootfs)
         self.setup_boot(rootfs)
         self.convert_to_ostree(rootfs)
-        if os.path.exists(repo) is None:
-            self.ostree.init(repo)
+        self.ostree.init(repo)
 
         self.logging.info(f"Commiting to {repo}. Please wait")
         self.ostree.ostree_commit(
@@ -144,6 +143,7 @@ class OstreePlugin(Base):
             os.rename(
                 rootdir.joinpath("var"),
                 rootdir.joinpath("usr/share/factory/var"))
+            rootdir.joinpath("var").mkdir(parents=True, exist_ok=True)
 
             # Remove unecessary files
             self.logging.info("Removing unnecessary files.")

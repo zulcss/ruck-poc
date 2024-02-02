@@ -1,0 +1,8 @@
+---
+name: ExampleOS
+actions:
+  debos:
+    source: image/image.yaml
+    ostree:
+      branch: ExampleOS/testing
+      repo: /var/www/html/repo

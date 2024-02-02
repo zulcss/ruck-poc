@@ -2,13 +2,40 @@
 name: ExampleOS
 actions:
   mmdebstrap:
-    suite: trixie
+    suite: bookworm
     target: rootfs.tar.gz
     setup-hooks:
       - 'sync-in overlay/debian/ /'
+      - 'sync-in overlay/ostree/ /'
+      - 'sync-in overlay/auto-login/ /'
+      - 'sync-in overlay/firstboot/ /'
+
+    customize-hooks:
+      - 'sync-in overlay/adduser/ /'
+      - echo 'root:root' | chroot "$1" chpasswd
+      - chroot $1 echo "localhost" > $1/etc/hostname
+      - systemctl disable --root=$1 apt-daily.timer
+      - systemctl enable --root="$1" firstboot systemd-networkd
+      - chroot $1 cp -alf /lib/systemd/resolv.conf /etc/resolv.conf
+      - chroot $1 cp -alf /usr/libexec/libostree/grub2-15_ostree /etc/grub.d/15_ostree
+      - chroot $1 cp -alf /usr/lib/os-release /etc/os-release
+
     packages:
       - systemd-boot
       - dracut
       - linux-image-amd64
       - ostree
       - ostree-boot
+      - sudo
+      - grub-efi-amd64
+      - vim
+      - net-tools
+      - openssh-client
+      - openssh-server
+      - procps
+      - dbus
+      - policykit-1
+      - libnss-resolve
+      - curl
+      - wget
+      - git-core
