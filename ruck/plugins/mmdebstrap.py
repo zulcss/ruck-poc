@@ -53,9 +53,6 @@ class MmdebstrapPlugin(Base):
         variant = config.get("variant", None)
         if variant:
             cmd.extend([f"--variant={variant}"])
-        else:
-            # Make the rootfs.tar.gz as small as possible.
-            cmd.extend(["--variant", "apt"])
 
         hooks = config.get("hooks", None)
         if hooks:
