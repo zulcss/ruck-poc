@@ -7,8 +7,8 @@ SPDX-License-Identifier: Apache-2.0
 import logging
 
 from ruck import exceptions
+from ruck import utils
 from ruck.plugins.base import Base
-from ruck.utils import run_command
 
 
 class UnpackPlugin(Base):
@@ -30,26 +30,11 @@ class UnpackPlugin(Base):
             raise exceptions.ConfigError("Unable to determine image.")
 
         rootfs = self.workspace.joinpath("rootfs")
-        self._mount(image, rootfs)
+        utils.mount(image, rootfs, self.workspace)
         self._unpack(target, rootfs)
-        self._umount(rootfs)
-
-    def _mount(self, image, path):
-        """Mount image on the desired path."""
-        self.logging.info(f"Mounting {image} on {path}")
-        run_command(
-            ["systemd-dissect", "-M", image, path],
-            cwd=self.workspace
-        )
-
-    def _umount(self, path):
-        """Umount image."""
-        self.logging.info(f"Umounting {path}")
-        run_command(
-            ["systemd-dissect", "-U", path],
-            cwd=self.workspace)
+        utils.umount(rootfs, self.workspace)
 
     def _unpack(self, target, rootfs):
-        run_command(
+        utils.run_command(
             ["tar", "-C", rootfs, "-xf", target, "--numeric-owner"],
             cwd=self.workspace)
