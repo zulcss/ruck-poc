@@ -11,6 +11,7 @@ from ruck import exceptions
 from ruck.plugins.base import Base
 from ruck import utils
 
+
 class MountPlugin(Base):
     def __init__(self, state, config, workspace):
         self.state = state
@@ -21,13 +22,12 @@ class MountPlugin(Base):
         self.virtuals = [
             ["none", "/proc", ["-t", "proc"]],
             ["/dev", "/dev", ["--bind"]],
-            ["none", "/dev/pts", ["-t","devpts"]],
-            ["none", "/dev/shm", ["-t","tmpfs"]],
-            ["none", "/run", ["-t","tmpfs"]],
-            ["none", "/run/lock", ["-t","tmpfs"]],
-            ["none", "/sys", ["-t","sysfs"]],
+            ["none", "/dev/pts", ["-t", "devpts"]],
+            ["none", "/dev/shm", ["-t", "tmpfs"]],
+            ["none", "/run", ["-t", "tmpfs"]],
+            ["none", "/run/lock", ["-t", "tmpfs"]],
+            ["none", "/sys", ["-t", "sysfs"]],
         ]
-
 
     def run_actions(self):
         src = self.mount.get("source", None)
@@ -47,4 +47,3 @@ class MountPlugin(Base):
             utils.run_command(
                 ["mount", device, path] + opts
             )
-

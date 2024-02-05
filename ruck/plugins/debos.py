@@ -49,4 +49,4 @@ class DebosPlugin(Base):
             ["debos",
              "-t", f"branch:{branch}",
              "-v",
-            source], cwd=self.workspace)
+             source], cwd=self.workspace)
