@@ -10,7 +10,7 @@ def run_command(argv, **kwargs):
 
 def run_chroot(path, argv, **kwargs):
     """Run a command in a chroot"""
-    cmd = ["chroot", str(path)] + argv.split()
+    cmd = ["chroot", str(path)] + argv
     return run_command(cmd, **kwargs)
 
 def mount(image, path, workspace):
