@@ -27,6 +27,7 @@ class MountPlugin(Base):
             ["none", "/run", ["-t", "tmpfs"]],
             ["none", "/run/lock", ["-t", "tmpfs"]],
             ["none", "/sys", ["-t", "sysfs"]],
+            ["/sys/firmware/efi/efivars", "/sys/firmware/efi/efivars/", ["--bind"]],
         ]
 
     def run_actions(self):
