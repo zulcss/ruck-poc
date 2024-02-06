@@ -20,10 +20,15 @@ class BootPlugin(Base):
         self.boot = self.config.get("actions")["boot"]
 
     def run_actions(self):
-        print("in boot plugin")
+        """install systemd-boot"""
         kernel_opts = self.boot.get("kernel_opts")
 
         rootfs = self.workspace.joinpath("rootfs")
         config_path = rootfs.joinpath("etc/kernel/cmdline")
         with open(config_path, "w") as config:
             config.write(kernel_opts)
+        utils.run_chroot(
+            rootfs, ["bootctl", "install"])
+        utils.run_chroot(
+            rootfs, ["/usr/bin/update-bootloader"])
+
