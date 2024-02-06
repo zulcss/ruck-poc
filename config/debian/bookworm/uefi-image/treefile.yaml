@@ -1,0 +1,28 @@
+---
+name: ruck-boot
+actions:
+  mmdebstrap:
+    suite: bookworm
+    target: rootfs.tar.gz
+    setup-hooks:
+      - 'sync-in overlay/debian/ /'
+    customize-hooks:
+      - echo 'root:root' | chroot "$1" chpasswd
+      - systemctl enable --root="$1" systemd-networkd
+      - chroot $1 echo "localhost" > $1/etc/hostname
+    packages:
+      - systemd-boot
+      - dracut-core
+      - linux-image-amd64
+      - vim
+      - sudo
+      - net-tools
+      - openssh-client
+      - openssh-server
+      - procps
+      - less
+      - dbus
+      - policykit-1
+      - curl
+      - wget
+      - git-core

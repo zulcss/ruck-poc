@@ -1,0 +1,9 @@
+---
+name: ruck-boot
+actions:
+  disk:
+    definitions: partitions
+    image: chuck-demo.img
+    size: 10G
+  unpack:
+    target: rootfs.tar.gz

@@ -1,0 +1,9 @@
+---
+name: ruck-boot
+actions:
+  mount:
+    source: chuck-demo.img
+  boot:
+    # should look something like "root=UUID=45b931b7-592a-46dc-9c33-d38d5901ec29 ro resume=/dev/sda3"
+    kernel_opts: "root=LABEL=ROOT console=tty0 console=ttyS0,115200"
+  umount:
